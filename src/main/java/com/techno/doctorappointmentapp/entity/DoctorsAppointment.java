@@ -22,15 +22,18 @@ import lombok.Setter;
 @Setter
 @Builder
 @Entity
-@Table(name="doctor_booking_details")
-public class DoctorBookingDetails {
+@Table(name="dba_doctor_appointment")
+public class DoctorsAppointment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="doctor_booking_id")
-	private Long doctorBookingDetailsId;
+	private Long doctorAppointentId;
 	@Column(name="booking_date")
 	private LocalDate localDate;
 	@Column(name="booking_time")
 	private LocalTime localTime;
+	
+	private String status;
+	private String note;
 }
