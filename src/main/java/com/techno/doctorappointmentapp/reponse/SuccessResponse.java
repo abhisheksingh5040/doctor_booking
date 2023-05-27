@@ -11,9 +11,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class SuccessResponse<T> {
+public class SuccessResponse {
 
 	private Boolean isError;
 	private String message;
-	private T data;
+	private Object data;
 }

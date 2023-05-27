@@ -1,7 +1,7 @@
 package com.techno.doctorappointmentapp.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +21,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@Entity
 @Table(name = "dba_doctor_rating")
 public class DoctorRating {
 
@@ -29,14 +28,14 @@ public class DoctorRating {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "doctor_rating_id")
 	private Long doctorRatingId;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "doctor_id")
-	private Doctor doctor;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
 	@Column(name = "doctor_rating", precision = 2)
 	private Double rating;
 	@Column(name = "doctor_comment", length = 256)
 	private String comment;
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "doctor_id")
+	private Doctor doctor;
 }

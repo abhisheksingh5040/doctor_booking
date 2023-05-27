@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.techno.doctorappointmentapp.entity.Doctor;
-import com.techno.doctorappointmentapp.entity.Roles;
 import com.techno.doctorappointmentapp.entity.User;
 import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
 import com.techno.doctorappointmentapp.pojo.UserPOJO;

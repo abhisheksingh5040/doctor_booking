@@ -2,6 +2,7 @@ package com.techno.doctorappointmentapp.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,4 +26,25 @@ public class AdminController {
 				.message("Roles created successfully!!!").data(adminService.addRoles(role)).build());
 
 	}
+	
+	@GetMapping("/userId")
+	public ResponseEntity<SuccessResponse> getUserById(@PathVariable(value = "userId") Long userId) {
+		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
+				.message("User fetched successfully!!!").data(adminService.getUserById(userId)).build());
+
+	}
+	
+	@GetMapping("/users")
+	public ResponseEntity<SuccessResponse> getAllUsers() {
+		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
+				.message("Users fetched successfully!!!").data(adminService.getAllUsers()).build());
+
+	}
+	@GetMapping("/deletedUser/{userId}")
+	public ResponseEntity<SuccessResponse> deletedUser(@PathVariable(value = "userId") Long userId) {
+		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
+				.message("Deleted users fetched successfully!!!").data(adminService.deletedUser(userId)).build());
+
+	}
+	
 }
