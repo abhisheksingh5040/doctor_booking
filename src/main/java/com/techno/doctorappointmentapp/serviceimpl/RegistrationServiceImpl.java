@@ -10,9 +10,7 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.techno.doctorappointmentapp.entity.Doctor;
 import com.techno.doctorappointmentapp.entity.User;
-import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
 import com.techno.doctorappointmentapp.pojo.UserPOJO;
 import com.techno.doctorappointmentapp.repository.DoctorRepository;
 import com.techno.doctorappointmentapp.repository.RolesRepository;
@@ -35,20 +33,13 @@ public class RegistrationServiceImpl implements RegistrationService {
 	public UserPOJO registerUser(UserPOJO userPOJO) {
 		return Optional.ofNullable(userPOJO).map(userPojo -> {
 			User user = modelMapper.map(userPojo, User.class);
+			if (userPOJO.getDoctor() != null)
+				user.getDoctor().setUser(user);
 			rolesRepository.findAllById(userPojo.getRoleId()).forEach(role -> {
 				List<User> users = Arrays.asList(user);
 				role.setUsers(new HashSet<>(users));
 			});
 			return modelMapper.map(userRepository.save(user), UserPOJO.class);
 		}).orElseGet(UserPOJO::new);
-	}
-
-	@Override
-	@Transactional
-	public DoctorPOJO registerDoctor(DoctorPOJO doctorPOJO) {
-		return Optional.ofNullable(doctorPOJO).map(doctorPojo -> {
-			doctorRepository.save(modelMapper.map(doctorPojo, Doctor.class));
-			return doctorPojo;
-		}).orElseGet(DoctorPOJO::new);
 	}
 }

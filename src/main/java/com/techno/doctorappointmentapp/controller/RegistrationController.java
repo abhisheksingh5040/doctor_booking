@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
 import com.techno.doctorappointmentapp.pojo.UserPOJO;
 import com.techno.doctorappointmentapp.reponse.SuccessResponse;
 import com.techno.doctorappointmentapp.service.RegistrationService;
@@ -28,10 +27,4 @@ public class RegistrationController {
 						.data(registrationService.registerUser(userPOJO)).build());
 	}
 
-	@PostMapping("/doctor")
-	public ResponseEntity<SuccessResponse> registerDoctor(@RequestBody DoctorPOJO doctorPOJO) {
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(SuccessResponse.builder().isError(Boolean.FALSE).message("Doctor details added successfully!!!!")
-						.data(registrationService.registerDoctor(doctorPOJO)).build());
-	}
 }

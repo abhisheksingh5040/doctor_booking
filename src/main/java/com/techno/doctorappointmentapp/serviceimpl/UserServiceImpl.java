@@ -1,5 +1,7 @@
 package com.techno.doctorappointmentapp.serviceimpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.techno.doctorappointmentapp.entity.DoctorRating;
 import com.techno.doctorappointmentapp.entity.User;
+import com.techno.doctorappointmentapp.enumeration.DoctorAvailabilityEnumeration;
 import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
+import com.techno.doctorappointmentapp.pojo.DoctorsPOJO;
 import com.techno.doctorappointmentapp.pojo.UserPOJO;
 import com.techno.doctorappointmentapp.repository.DoctorRepository;
 import com.techno.doctorappointmentapp.repository.RatingRepository;
@@ -38,12 +42,11 @@ public class UserServiceImpl implements UserService {
 
 			doctor.setDoctorAverageRating((averageRating * count + rating) / (count + 1));
 			User user = userRepository.findByUserIdAndIsDeleteFalse(userId).orElseThrow(null);
-			ratingRepository.save(DoctorRating.builder().rating(rating).user(user).build());
-
+			DoctorRating doctorRating = ratingRepository.save(DoctorRating.builder().rating(rating).user(user).build());
+			doctor.setDoctorRating(Arrays.asList(doctorRating));
 			return "rating is added!!!!";
-
 		}).orElseThrow(null);
-
+//
 	}
 
 	@Override
@@ -63,6 +66,15 @@ public class UserServiceImpl implements UserService {
 			user.setIsDelete(Boolean.TRUE);
 			return modelMapper.map(user, UserPOJO.class);
 		}).orElseThrow(null);
+	}
+
+	@Override
+	public List<DoctorsPOJO> getDoctors() {
+		return doctorRepository
+				.findByIsDeleteFalseAndDoctorAvailabilityOrderByDoctorAverageRatingDesc(
+						DoctorAvailabilityEnumeration.AVAILABLE)
+				.orElseGet(ArrayList::new).stream().map(doctor -> modelMapper.map(doctor, DoctorsPOJO.class))
+				.collect(Collectors.toList());
 	}
 
 }

@@ -53,7 +53,8 @@ public class Doctor {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	private User user;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "doctor")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name="doctor_id")
     private List<DoctorRating> doctorRating;
 	
 	public Boolean getIsDelete() {

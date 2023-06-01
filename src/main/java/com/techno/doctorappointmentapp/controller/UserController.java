@@ -40,4 +40,10 @@ public class UserController {
 				.message("User deleted successfully!!!").data(userService.deleteUserById(userId)).build());
 
 	}
+	
+	@GetMapping("/doctors")
+	public ResponseEntity<SuccessResponse> getDoctors() {
+		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
+				.message("Search Results!!!!").data(userService.getDoctors()).build());
+	}
 }

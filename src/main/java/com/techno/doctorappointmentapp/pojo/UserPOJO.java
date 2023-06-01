@@ -17,7 +17,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @SuppressWarnings("serial")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +32,7 @@ public class UserPOJO implements Serializable{
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long userId;
 	private String userName;
-	private String userAge;
+	private Integer userAge;
 	private String userEmailId;
 	private String userPassword;
 	@Enumerated(EnumType.STRING)
@@ -38,7 +40,7 @@ public class UserPOJO implements Serializable{
 	private Long userPhoneNumber;
 	private Boolean isDelete;
 	private Set<Long> roleId;
-	private DoctorPOJO doctorPOJO;
+	private DoctorPOJO doctor;
 
 	public Boolean getIsDelete() {
 		return isDelete == null ? Boolean.FALSE : isDelete;
