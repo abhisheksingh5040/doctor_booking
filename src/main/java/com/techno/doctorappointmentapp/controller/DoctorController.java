@@ -21,7 +21,7 @@ public class DoctorController {
 
 	private final DoctorService doctorService;
 
-	@PutMapping("/{doctorId}/{status}")
+	@PutMapping("{doctorId}/{status}")
 	public ResponseEntity<SuccessResponse> updateStatus(@PathVariable(value = "doctorId") Long doctorId,
 			@PathVariable(value = "status") DoctorAvailabilityEnumeration status) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(SuccessResponse.builder().isError(Boolean.FALSE)

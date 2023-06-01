@@ -20,27 +20,25 @@ public class AdminController {
 
 	private final AdminService adminService;
 
-	@PostMapping("/roles/{role}")
+	@PostMapping("roles/{role}")
 	public ResponseEntity<SuccessResponse> addRoles(@PathVariable(value = "role") String role) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("Roles created successfully!!!").data(adminService.addRoles(role)).build());
-
 	}
 	
 	@GetMapping("/{userId}")
 	public ResponseEntity<SuccessResponse> getUserById(@PathVariable(value = "userId") Long userId) {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("User fetched successfully!!!").data(adminService.getUserById(userId)).build());
-
 	}
 	
-	@GetMapping("/users")
+	@GetMapping("users")
 	public ResponseEntity<SuccessResponse> getAllUsers() {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("Users fetched successfully!!!").data(adminService.getAllUsers()).build());
-
 	}
-	@GetMapping("/deletedUser/{userId}")
+	
+	@GetMapping("deleted-user/{userId}")
 	public ResponseEntity<SuccessResponse> deletedUser(@PathVariable(value = "userId") Long userId) {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("Deleted users fetched successfully!!!").data(adminService.deletedUser(userId)).build());

@@ -31,7 +31,8 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public UserPOJO getUserById(Long userId) {
 		return userRepository.findByUserIdAndIsDeleteFalseAndDoctorIsNull(userId)
-				.map(user -> modelMapper.map(user, UserPOJO.class)).orElseThrow(null);
+				.map(user -> modelMapper.map(user, UserPOJO.class))
+				.orElseThrow(() -> new RuntimeException("Invalid User Id!!!"));
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public UserPOJO deletedUser(Long userId) {
 		return userRepository.findByUserIdAndIsDeleteTrue(userId).map(user -> modelMapper.map(user, UserPOJO.class))
-				.orElseThrow(null);
+				.orElseThrow(() -> new RuntimeException("Invalid User Id!!!"));
 	}
 
 }

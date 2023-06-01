@@ -15,6 +15,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 	Optional<List<Doctor>> findByIsDeleteFalseAndDoctorAvailabilityOrderByDoctorAverageRatingDesc(
 			DoctorAvailabilityEnumeration availabilityEnumeration);
 
+	Optional<Doctor> findByDoctorIdAndIsDeleteFalseAndDoctorAvailability(Long doctorId,
+			DoctorAvailabilityEnumeration available);
+
 //	Optional<List<Doctor>> findByDoctorNameOrdoctorSpecialityOrDoctorEducationOrUserUserEmailIdOrUserUserPhoneNumberOrderByDoctorAverageRatingDesc(
 //			String search);
 

@@ -20,10 +20,12 @@ public class RegistrationController {
 
 	private final RegistrationService registrationService;
 
-	@PostMapping("/user")
+	@PostMapping("user")
 	public ResponseEntity<SuccessResponse> registerUser(@RequestBody UserPOJO userPOJO) {
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(SuccessResponse.builder().isError(Boolean.FALSE).message("User details added successfully!!!!")
+				.body(SuccessResponse.builder().isError(Boolean.FALSE)
+						.message(userPOJO.getDoctor() != null ? "Doctor details added successfully!!!!"
+								: "User details added successfully!!!!")
 						.data(registrationService.registerUser(userPOJO)).build());
 	}
 

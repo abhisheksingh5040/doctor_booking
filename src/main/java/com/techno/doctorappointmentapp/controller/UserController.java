@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPOJO;
 import com.techno.doctorappointmentapp.pojo.RatingPOJO;
 import com.techno.doctorappointmentapp.reponse.SuccessResponse;
 import com.techno.doctorappointmentapp.service.UserService;
@@ -24,27 +25,33 @@ public class UserController {
 
 	private final UserService userService;
 
-	@PostMapping("/rating")
+	@PostMapping("rating")
 	public ResponseEntity<String> addRating(@RequestBody RatingPOJO ratingPOJO) {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.addRating(ratingPOJO));
 	}
 
-	@GetMapping("/search")
+	@GetMapping("search")
 	public ResponseEntity<SuccessResponse> searchDoctors(@RequestParam(value = "search") String search) {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("Search Results!!!!").data(userService.searchDoctors(search)).build());
 	}
 
-	@DeleteMapping("/user/{userId}")
+	@DeleteMapping("user/{userId}")
 	public ResponseEntity<SuccessResponse> deleteUserById(@PathVariable(value = "userId") Long userId) {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("User deleted successfully!!!").data(userService.deleteUserById(userId)).build());
 
 	}
 
-	@GetMapping("/doctors")
+	@GetMapping("doctors")
 	public ResponseEntity<SuccessResponse> getDoctors() {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("All doctors fetched successfully!!!!").data(userService.getDoctors()).build());
+	}
+	
+	@PostMapping("book-appointment")
+	public ResponseEntity<SuccessResponse> bookAppointment(@RequestBody DoctorBookingDetailsPOJO doctorBookingDetailsPOJO) {
+		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
+				.message("Appointment booked successfully!!!!").data(userService.bookAppointment(doctorBookingDetailsPOJO)).build());
 	}
 }

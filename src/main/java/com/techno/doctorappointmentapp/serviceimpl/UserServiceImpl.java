@@ -1,5 +1,6 @@
 package com.techno.doctorappointmentapp.serviceimpl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,12 +12,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.techno.doctorappointmentapp.entity.DoctorRating;
+import com.techno.doctorappointmentapp.entity.DoctorsAppointment;
 import com.techno.doctorappointmentapp.entity.User;
+import com.techno.doctorappointmentapp.enumeration.AppointmentEnumeration;
 import com.techno.doctorappointmentapp.enumeration.DoctorAvailabilityEnumeration;
+import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPOJO;
 import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
 import com.techno.doctorappointmentapp.pojo.DoctorsPOJO;
 import com.techno.doctorappointmentapp.pojo.RatingPOJO;
 import com.techno.doctorappointmentapp.pojo.UserPOJO;
+import com.techno.doctorappointmentapp.repository.DoctorAppointmentRepository;
 import com.techno.doctorappointmentapp.repository.DoctorRepository;
 import com.techno.doctorappointmentapp.repository.UserRepository;
 import com.techno.doctorappointmentapp.service.UserService;
@@ -30,6 +35,7 @@ public class UserServiceImpl implements UserService {
 	private final ModelMapper modelMapper;
 	private final UserRepository userRepository;
 	private final DoctorRepository doctorRepository;
+	private final DoctorAppointmentRepository appointmentRepository;
 
 	@Transactional
 	@Override
@@ -64,7 +70,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByUserIdAndIsDeleteFalse(userId).map(user -> {
 			user.setIsDelete(Boolean.TRUE);
 			return modelMapper.map(user, UserPOJO.class);
-		}).orElseThrow(null);
+		}).orElseThrow(() -> new RuntimeException("Invalid User Id!!!"));
 	}
 
 	@Override
@@ -78,6 +84,35 @@ public class UserServiceImpl implements UserService {
 						.userPhoneNumber(doctor.getUser().getUserPhoneNumber())
 						.doctorSpeciality(doctor.getDoctorSpeciality()).build())
 				.collect(Collectors.toList());
+	}
+
+	@Transactional
+	@Override
+	public DoctorBookingDetailsPOJO bookAppointment(DoctorBookingDetailsPOJO doctorBookingDetailsPOJO) {
+		if (LocalDateTime.now()
+				.isAfter(doctorBookingDetailsPOJO.getLocalDate().atTime(doctorBookingDetailsPOJO.getLocalTime())))
+			return null;
+		return doctorRepository
+				.findByDoctorIdAndIsDeleteFalseAndDoctorAvailability(doctorBookingDetailsPOJO.getDoctorIds(),
+						DoctorAvailabilityEnumeration.AVAILABLE)
+				.map(doctor -> {
+					doctor.getDoctorsAppointments().stream()
+							.filter(doc -> doc.getBookingDate().isEqual(doctorBookingDetailsPOJO.getLocalDate()))
+							.forEach(appointment -> {
+								if ((appointment.getBookingTime().plusMinutes(15)
+										.isBefore(doctorBookingDetailsPOJO.getLocalTime()))
+										&& (appointment.getBookingTime().minusMinutes(15)
+												.isAfter(doctorBookingDetailsPOJO.getLocalTime())))
+									throw new RuntimeException("Booking slot is not available");
+							});
+					return modelMapper.map(appointmentRepository.save(DoctorsAppointment.builder()
+							.bookingDate(doctorBookingDetailsPOJO.getLocalDate())
+							.bookingTime(doctorBookingDetailsPOJO.getLocalTime())
+							.status(AppointmentEnumeration.SCHEDULED)
+							.user(userRepository.findByUserIdAndIsDeleteFalse(doctorBookingDetailsPOJO.getUserIds())
+									.orElseThrow(() -> new RuntimeException("Invalid User Id!!!")))
+							.doctor(doctor).build()), DoctorBookingDetailsPOJO.class);
+				}).orElseThrow(() -> new RuntimeException("Invalid doctor Id!!!"));
 	}
 
 }
