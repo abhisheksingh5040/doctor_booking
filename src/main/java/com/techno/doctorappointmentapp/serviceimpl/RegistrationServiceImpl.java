@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.techno.doctorappointmentapp.entity.User;
 import com.techno.doctorappointmentapp.pojo.UserPOJO;
-import com.techno.doctorappointmentapp.repository.DoctorRepository;
 import com.techno.doctorappointmentapp.repository.RolesRepository;
 import com.techno.doctorappointmentapp.repository.UserRepository;
 import com.techno.doctorappointmentapp.service.RegistrationService;
@@ -26,7 +25,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 	private final ModelMapper modelMapper;
 	private final UserRepository userRepository;
 	private final RolesRepository rolesRepository;
-	private final DoctorRepository doctorRepository;
 
 	@Override
 	@Transactional

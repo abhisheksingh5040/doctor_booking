@@ -56,6 +56,8 @@ public class Doctor {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="doctor_id")
     private List<DoctorRating> doctorRating;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "doctor")
+    private List<DoctorsAppointment> doctorsAppointments;
 	
 	public Boolean getIsDelete() {
 		return isDelete == null ? Boolean.FALSE : isDelete;

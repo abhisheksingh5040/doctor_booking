@@ -1,5 +1,6 @@
 package com.techno.doctorappointmentapp.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -55,4 +57,6 @@ public class User {
 	private Doctor doctor;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "users")
 	private Set<Roles> roles;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "user")
+    private List<DoctorsAppointment> doctorsAppointments;
 }

@@ -30,8 +30,8 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public UserPOJO getUserById(Long userId) {
-		return userRepository.findByUserIdAndIsDeleteFalse(userId).map(user -> modelMapper.map(user, UserPOJO.class))
-				.orElseThrow(null);
+		return userRepository.findByUserIdAndIsDeleteFalseAndDoctorIsNull(userId)
+				.map(user -> modelMapper.map(user, UserPOJO.class)).orElseThrow(null);
 	}
 
 	@Override

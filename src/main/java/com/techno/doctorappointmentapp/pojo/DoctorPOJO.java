@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.techno.doctorappointmentapp.enumeration.DoctorAvailabilityEnumeration;
 
@@ -21,6 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@JsonInclude(value = Include.NON_DEFAULT)
 public class DoctorPOJO implements Serializable{
 
 	@JsonProperty(access = Access.READ_ONLY)

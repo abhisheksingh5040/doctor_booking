@@ -27,7 +27,7 @@ public class AdminController {
 
 	}
 	
-	@GetMapping("/userId")
+	@GetMapping("/{userId}")
 	public ResponseEntity<SuccessResponse> getUserById(@PathVariable(value = "userId") Long userId) {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
 				.message("User fetched successfully!!!").data(adminService.getUserById(userId)).build());
