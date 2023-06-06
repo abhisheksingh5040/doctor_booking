@@ -2,22 +2,22 @@ package com.techno.doctorappointmentapp.service;
 
 import java.util.List;
 
-import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPOJO;
-import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
-import com.techno.doctorappointmentapp.pojo.DoctorsPOJO;
-import com.techno.doctorappointmentapp.pojo.RatingPOJO;
-import com.techno.doctorappointmentapp.pojo.UserPOJO;
+import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPojo;
+import com.techno.doctorappointmentapp.pojo.DoctorPojo;
+import com.techno.doctorappointmentapp.pojo.DoctorsPojo;
+import com.techno.doctorappointmentapp.pojo.RatingPojo;
+import com.techno.doctorappointmentapp.pojo.UserPojo;
 
 public interface UserService {
 
-	String addRating(RatingPOJO ratingPOJO);
+	String addRating(RatingPojo ratingPojo);
 
-	List<DoctorPOJO> searchDoctors(String search);
+	List<DoctorPojo> searchDoctors(String search);
 
-	UserPOJO deleteUserById(Long userId);
+	UserPojo deleteUserById(Long userId);
 
-	List<DoctorsPOJO> getDoctors();
+	List<DoctorsPojo> getDoctors();
 
-	DoctorBookingDetailsPOJO bookAppointment(DoctorBookingDetailsPOJO doctorBookingDetailsPOJO);
+	DoctorBookingDetailsPojo bookAppointment(DoctorBookingDetailsPojo doctorBookingDetailsPojo);
 
 }

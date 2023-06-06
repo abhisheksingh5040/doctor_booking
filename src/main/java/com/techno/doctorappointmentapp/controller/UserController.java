@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPOJO;
-import com.techno.doctorappointmentapp.pojo.RatingPOJO;
+import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPojo;
+import com.techno.doctorappointmentapp.pojo.RatingPojo;
 import com.techno.doctorappointmentapp.reponse.SuccessResponse;
 import com.techno.doctorappointmentapp.service.UserService;
 
@@ -26,8 +26,8 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping("rating")
-	public ResponseEntity<String> addRating(@RequestBody RatingPOJO ratingPOJO) {
-		return ResponseEntity.status(HttpStatus.OK).body(userService.addRating(ratingPOJO));
+	public ResponseEntity<String> addRating(@RequestBody RatingPojo ratingPojo) {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.addRating(ratingPojo));
 	}
 
 	@GetMapping("search")
@@ -50,8 +50,8 @@ public class UserController {
 	}
 	
 	@PostMapping("book-appointment")
-	public ResponseEntity<SuccessResponse> bookAppointment(@RequestBody DoctorBookingDetailsPOJO doctorBookingDetailsPOJO) {
+	public ResponseEntity<SuccessResponse> bookAppointment(@RequestBody DoctorBookingDetailsPojo doctorBookingDetailsPojo) {
 		return ResponseEntity.status(HttpStatus.OK).body(SuccessResponse.builder().isError(Boolean.FALSE)
-				.message("Appointment booked successfully!!!!").data(userService.bookAppointment(doctorBookingDetailsPOJO)).build());
+				.message("Appointment booked successfully!!!!").data(userService.bookAppointment(doctorBookingDetailsPojo)).build());
 	}
 }

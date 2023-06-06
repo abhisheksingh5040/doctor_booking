@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @JsonInclude(value = Include.NON_DEFAULT)
-public class UserPOJO implements Serializable{
+public class UserPojo implements Serializable{
 
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long userId;
@@ -38,7 +38,7 @@ public class UserPOJO implements Serializable{
 	private Long userPhoneNumber;
 	private Boolean isDelete;
 	private Set<Long> roleId;
-	private DoctorPOJO doctor;
+	private DoctorPojo doctor;
 
 	public Boolean getIsDelete() {
 		return isDelete == null ? Boolean.FALSE : isDelete;

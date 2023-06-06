@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @JsonInclude(value = Include.NON_DEFAULT)
-public class RatingPOJO implements Serializable {
+public class RatingPojo implements Serializable {
 
 	private Long doctorId;
 	private Long userId;

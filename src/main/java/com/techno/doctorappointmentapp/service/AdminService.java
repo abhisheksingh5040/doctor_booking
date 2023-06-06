@@ -2,16 +2,16 @@ package com.techno.doctorappointmentapp.service;
 
 import java.util.List;
 
-import com.techno.doctorappointmentapp.pojo.UserPOJO;
+import com.techno.doctorappointmentapp.pojo.UserPojo;
 
 public interface AdminService {
 
 	Long addRoles(String role);
 
-	UserPOJO getUserById(Long userId);
+	UserPojo getUserById(Long userId);
 
-	List<UserPOJO> getAllUsers();
+	List<UserPojo> getAllUsers();
 
-	UserPOJO deletedUser(Long userId);
+	UserPojo deletedUser(Long userId);
 
 }

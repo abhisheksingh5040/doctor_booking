@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.techno.doctorappointmentapp.entity.Roles;
-import com.techno.doctorappointmentapp.pojo.UserPOJO;
+import com.techno.doctorappointmentapp.pojo.UserPojo;
 import com.techno.doctorappointmentapp.repository.RolesRepository;
 import com.techno.doctorappointmentapp.repository.UserRepository;
 import com.techno.doctorappointmentapp.service.AdminService;
@@ -29,24 +29,24 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public UserPOJO getUserById(Long userId) {
+	public UserPojo getUserById(Long userId) {
 		return userRepository.findByUserIdAndIsDeleteFalseAndDoctorIsNull(userId)
-				.map(user -> modelMapper.map(user, UserPOJO.class))
+				.map(user -> modelMapper.map(user, UserPojo.class))
 				.orElseThrow(() -> new RuntimeException("Invalid User Id!!!"));
 	}
 
 	@Override
-	public List<UserPOJO> getAllUsers() {
+	public List<UserPojo> getAllUsers() {
 		return userRepository.findByIsDeleteFalseAndDoctorNull().orElseGet(() -> new ArrayList<>()).stream()
-				.map(user -> UserPOJO.builder().userName(user.getUserName()).userEmailId(user.getUserEmailId())
+				.map(user -> UserPojo.builder().userName(user.getUserName()).userEmailId(user.getUserEmailId())
 						.userSex(user.getUserSex()).userAge(user.getUserAge())
 						.userPhoneNumber(user.getUserPhoneNumber()).build())
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public UserPOJO deletedUser(Long userId) {
-		return userRepository.findByUserIdAndIsDeleteTrue(userId).map(user -> modelMapper.map(user, UserPOJO.class))
+	public UserPojo deletedUser(Long userId) {
+		return userRepository.findByUserIdAndIsDeleteTrue(userId).map(user -> modelMapper.map(user, UserPojo.class))
 				.orElseThrow(() -> new RuntimeException("Invalid User Id!!!"));
 	}
 

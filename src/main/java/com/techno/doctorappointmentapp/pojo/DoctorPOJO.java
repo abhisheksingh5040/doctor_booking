@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @JsonInclude(value = Include.NON_DEFAULT)
-public class DoctorPOJO implements Serializable{
+public class DoctorPojo implements Serializable{
 
 	@JsonProperty(access = Access.READ_ONLY)
 	private Long doctorId;

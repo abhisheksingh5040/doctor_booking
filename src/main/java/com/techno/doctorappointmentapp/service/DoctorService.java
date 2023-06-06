@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.techno.doctorappointmentapp.enumeration.DoctorAvailabilityEnumeration;
-import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPOJO;
-import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
+import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPojo;
+import com.techno.doctorappointmentapp.pojo.DoctorPojo;
 
 public interface DoctorService {
 
-	DoctorPOJO updateStatus(Long doctorId, DoctorAvailabilityEnumeration status);
+	DoctorPojo updateStatus(Long doctorId, DoctorAvailabilityEnumeration status);
 
-	Map<LocalDate,List<DoctorBookingDetailsPOJO>> getAllAppointments();
+	Map<LocalDate,List<DoctorBookingDetailsPojo>> getAllAppointments();
 
 }

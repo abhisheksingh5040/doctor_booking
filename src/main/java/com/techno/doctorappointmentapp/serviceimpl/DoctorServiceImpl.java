@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.techno.doctorappointmentapp.entity.DoctorsAppointment;
 import com.techno.doctorappointmentapp.enumeration.DoctorAvailabilityEnumeration;
-import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPOJO;
-import com.techno.doctorappointmentapp.pojo.DoctorPOJO;
+import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPojo;
+import com.techno.doctorappointmentapp.pojo.DoctorPojo;
 import com.techno.doctorappointmentapp.repository.DoctorAppointmentRepository;
 import com.techno.doctorappointmentapp.repository.DoctorRepository;
 import com.techno.doctorappointmentapp.service.DoctorService;
@@ -28,19 +28,19 @@ public class DoctorServiceImpl implements DoctorService {
 	private final DoctorAppointmentRepository doctorAppointmentRepository;
 
 	@Override
-	public DoctorPOJO updateStatus(Long doctorId, DoctorAvailabilityEnumeration status) {
+	public DoctorPojo updateStatus(Long doctorId, DoctorAvailabilityEnumeration status) {
 		return doctorRepository.findByDoctorIdAndIsDeleteFalse(doctorId).map(doctor -> {
 			doctor.setDoctorAvailability(status);
-			return modelMapper.map(doctor, DoctorPOJO.class);
-		}).orElseGet(DoctorPOJO::new);
+			return modelMapper.map(doctor, DoctorPojo.class);
+		}).orElseGet(DoctorPojo::new);
 	}
 
 	@Override
-	public Map<LocalDate, List<DoctorBookingDetailsPOJO>> getAllAppointments() {
+	public Map<LocalDate, List<DoctorBookingDetailsPojo>> getAllAppointments() {
 		return doctorAppointmentRepository.findAllByOrderByBookingDateAscBookingTimeAsc().orElseGet(ArrayList::new)
 				.stream()
 				.collect(Collectors.groupingBy(DoctorsAppointment::getBookingDate,
-						Collectors.mapping(appoinment -> DoctorBookingDetailsPOJO.builder()
+						Collectors.mapping(appoinment -> DoctorBookingDetailsPojo.builder()
 								.localDate(appoinment.getBookingDate()).localTime(appoinment.getBookingTime())
 								.userName(appoinment.getUser().getUserName()).build(), Collectors.toList())));
 	}

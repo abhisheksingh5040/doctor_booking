@@ -1,9 +1,9 @@
 package com.techno.doctorappointmentapp.service;
 
-import com.techno.doctorappointmentapp.pojo.UserPOJO;
+import com.techno.doctorappointmentapp.pojo.UserPojo;
 
 public interface RegistrationService {
 
-	UserPOJO registerUser(UserPOJO userPOJO);
+	UserPojo registerUser(UserPojo userPojo);
 
 }
