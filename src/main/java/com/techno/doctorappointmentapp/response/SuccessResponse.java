@@ -1,4 +1,4 @@
-package com.techno.doctorappointmentapp.reponse;
+package com.techno.doctorappointmentapp.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

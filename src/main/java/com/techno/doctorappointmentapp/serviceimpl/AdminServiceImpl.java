@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import static com.techno.doctorappointmentapp.appconstant.ApplicationConstant.*;
 import com.techno.doctorappointmentapp.entity.Roles;
+import com.techno.doctorappointmentapp.exception.UserNotFoundException;
 import com.techno.doctorappointmentapp.pojo.UserPojo;
 import com.techno.doctorappointmentapp.repository.RolesRepository;
 import com.techno.doctorappointmentapp.repository.UserRepository;
@@ -32,12 +34,12 @@ public class AdminServiceImpl implements AdminService {
 	public UserPojo getUserById(Long userId) {
 		return userRepository.findByUserIdAndIsDeleteFalseAndDoctorIsNull(userId)
 				.map(user -> modelMapper.map(user, UserPojo.class))
-				.orElseThrow(() -> new RuntimeException("Invalid User Id!!!"));
+				.orElseThrow(() -> new UserNotFoundException(INVALID_USER_ID));
 	}
 
 	@Override
 	public List<UserPojo> getAllUsers() {
-		return userRepository.findByIsDeleteFalseAndDoctorNull().orElseGet(() -> new ArrayList<>()).stream()
+		return userRepository.findByIsDeleteFalseAndDoctorNull().orElseGet(ArrayList::new).stream()
 				.map(user -> UserPojo.builder().userName(user.getUserName()).userEmailId(user.getUserEmailId())
 						.userSex(user.getUserSex()).userAge(user.getUserAge())
 						.userPhoneNumber(user.getUserPhoneNumber()).build())
@@ -47,7 +49,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public UserPojo deletedUser(Long userId) {
 		return userRepository.findByUserIdAndIsDeleteTrue(userId).map(user -> modelMapper.map(user, UserPojo.class))
-				.orElseThrow(() -> new RuntimeException("Invalid User Id!!!"));
+				.orElseThrow(() -> new UserNotFoundException(INVALID_USER_ID));
 	}
 
 }

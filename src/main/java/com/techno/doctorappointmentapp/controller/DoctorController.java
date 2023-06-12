@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techno.doctorappointmentapp.enumeration.DoctorAvailabilityEnumeration;
-import com.techno.doctorappointmentapp.reponse.SuccessResponse;
+import com.techno.doctorappointmentapp.response.SuccessResponse;
 import com.techno.doctorappointmentapp.service.DoctorService;
 
 import lombok.RequiredArgsConstructor;

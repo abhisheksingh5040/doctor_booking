@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techno.doctorappointmentapp.pojo.DoctorBookingDetailsPojo;
 import com.techno.doctorappointmentapp.pojo.RatingPojo;
-import com.techno.doctorappointmentapp.reponse.SuccessResponse;
+import com.techno.doctorappointmentapp.response.SuccessResponse;
 import com.techno.doctorappointmentapp.service.UserService;
 
 import lombok.RequiredArgsConstructor;
